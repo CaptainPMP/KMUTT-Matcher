@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.status(200).send("Welcome");
+    res.status(200).send("Welcome");
 });
 
 mongoose
@@ -19,6 +19,5 @@ mongoose
     })
     .catch((error) => {
         console.error(error);
-    })
-
+    });
 
