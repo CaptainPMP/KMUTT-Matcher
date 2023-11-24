@@ -22,13 +22,7 @@ const Register = () => {
 
     axios.post("http://localhost:4000/users", user)
         .then((res) => {
-            setTitle('')
-            setLoad('')
-            setReps('')
-            setError(null)
-            setEmptyFields([])
-            console.log('new workout added', res.data);
-            dispatch({type:'CREATE_WORKOUT', payload: res.data})
+            setFullName(res)
         })
         .catch((error) => {
             console.log(error);
