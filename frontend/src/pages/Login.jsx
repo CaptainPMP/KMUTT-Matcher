@@ -1,11 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { Eye, EyeSlash  } from "phosphor-react";
+import axios from "axios"
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const togglePasswordVisibility = () => {
     setPasswordVisible((prev) => !prev);
@@ -24,6 +27,8 @@ const Login = () => {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="username"
                 type="text"
+                value={email}
+                onChange={((e) => setEmail(e.target.value))}
                 placeholder="Enter your email"
               />
             </div>
@@ -37,6 +42,8 @@ const Login = () => {
                   id="password"
                   type={passwordVisible ? 'text' : 'password'}
                   placeholder="********"
+                  value={password}
+                  onChange={((e) => setPassword(e.target.value))}
                 />
                 <button
                   className="absolute inset-y-0 right-0 mt-2 mr-2"
