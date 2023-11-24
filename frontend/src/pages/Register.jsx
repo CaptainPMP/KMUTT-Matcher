@@ -1,15 +1,18 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Eye, EyeSlash  } from "phosphor-react";
+import axios from "axios"
 
 const Register = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [full_name, setFullName] = useState("");
+  const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  
+  const navigate = useNavigate()
 
   const togglePasswordVisibility = () => {
     setPasswordVisible((prev) => !prev);
@@ -18,16 +21,24 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const user = {full_name, email, password, confirmPassword}
+    const user = {full_name: fullname, email, password, confirm_password: confirmPassword}
+
+    console.log("submited: ", user);
 
     axios.post("http://localhost:4000/users", user)
         .then((res) => {
-            setFullName(res)
+            setFullName("")
+            setEmail("")
+            setPassword("")
+            setConfirmPassword("")
+            if(res.status === 201){
+              navigate('/home')
+            }
         })
         .catch((error) => {
             console.log(error);
-            setError(error.response.data.error)
-            setEmptyFields(error.response.data.emptyFields)
+            // setError(error.response.data.error)
+            // setEmptyFields(error.response.data.emptyFields)
         })
   }
 
@@ -46,7 +57,7 @@ const Register = () => {
                 id="username"
                 type="text"
                 placeholder="Enter your username"
-                value={full_name}
+                value={fullname}
                 onChange={((e) => setFullName(e.target.value))}
               />
             </div>
@@ -56,7 +67,7 @@ const Register = () => {
               </label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="username"
+                id="email"
                 type="text"
                 placeholder="Enter your email"
                 value={email}
@@ -74,6 +85,7 @@ const Register = () => {
                   type={passwordVisible ? 'text' : 'password'}
                   placeholder="********"
                   value={password}
+                  autoComplete="on"
                   onChange={((e) => setPassword(e.target.value))}
                 />
                 <button
@@ -92,10 +104,11 @@ const Register = () => {
               <div className="relative">
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="password"
+                  id="confirm_password"
                   type={passwordVisible ? 'text' : 'password'}
                   placeholder="********"
                   value={confirmPassword}
+                  autoComplete="on"
                   onChange={((e) => setConfirmPassword(e.target.value))}
                 />
                 <button
@@ -110,7 +123,7 @@ const Register = () => {
             <div className="flex items-center justify-between">
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button"
+                type="submit"
               >
                 Register
               </button>

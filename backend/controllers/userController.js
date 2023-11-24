@@ -70,7 +70,7 @@ const createUser = async (req, res) => {
 
     try {
         const user = await User.create({email, password: hashedPassword, full_name})
-        res.status(200).json(user)
+        res.status(201).json({user, message: "User registered successfully"})
     } catch (error) {
         res.status(400).json({err: error.message})
     }
