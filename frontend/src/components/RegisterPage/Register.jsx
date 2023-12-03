@@ -16,7 +16,6 @@ function Register() {
             <div className='flex flex-wrap flex-row justify-evenly bg-blue-00 w-full'>
               <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg hover:bg-cyan-600 rounded-full  bg-green-100 mt-10 py-3 px-20 font-semibold">Register</button>
             </div>
-            
           </div>
         </div>
       </div>
