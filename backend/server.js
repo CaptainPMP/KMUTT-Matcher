@@ -1,13 +1,17 @@
-import "dotenv/config";
-import express from "express";
-import mongoose from "mongoose";
+require('dotenv').config()
+const express = require('express')
+const mongoose = require('mongoose')
+const userRoutes = require("./routes/userRoute")
+const auth = require("./routes/auth")
 
 const app = express();
 
 app.use(express.json());
+app.use('/users', userRoutes)
+app.use('/users', auth)
 
 app.get("/", (req, res) => {
-  res.status(200).send("Welcome");
+    res.status(200).send("Welcome Kmuut");
 });
 
 mongoose
@@ -19,6 +23,5 @@ mongoose
     })
     .catch((error) => {
         console.error(error);
-    })
-
+    });
 

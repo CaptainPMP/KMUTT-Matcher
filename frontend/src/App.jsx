@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 // CSS
 import './App.css'
 import './components/LoginPage/Login.css'
@@ -29,16 +30,53 @@ import BoxBox from './components/MainPage/BoxBox'
 import EditPage from './components/EditPage/EditPage'
 import UserEdit from './components/EditPage/UserEdit'
 
-function App() {
-  const [count, setCount] = useState(0)
 
+function App() {
   return (
-    <>
-      <EditPage/>
-      <UserEdit/>
-      <BottomMenu/>
-    </>
-  )
+    <BrowserRouter>
+      <div>
+        {/* กำหนดเส้นทางสำหรับหน้าแรก */}
+        <Routes>
+          <Route path="/" element={<div> {/* ให้มี div หรือ fragment เพื่อครอบรอบ Navbar และ Hero */}
+            <Navbar />
+            <Hero />
+          </div>} />
+        </Routes>
+
+        {/* กำหนดเส้นทางสำหรับหน้า Login */}
+        <Routes>
+          <Route path="/login" element={<div>
+            <Navbar></Navbar>
+            <Login />
+            </div>} />
+        </Routes>
+
+        {/* กำหนดเส้นทางสำหรับหน้า Register */}
+        <Routes>
+          <Route path="/register" element={<div>
+            <Navbar></Navbar>
+            <Register />
+            </div>} />
+        </Routes>
+
+        {/* กำหนดเส้นทางสำหรับหน้า Main */}
+        <Routes>
+          <Route path="/main" element={<div>
+            <BottomMenu />
+            <WelcomeMenu />
+            <BoxBox />
+          </div>}>
+          </Route>
+        </Routes>
+
+        {/* กำหนดเส้นทางสำหรับหน้า Edit */}
+        <Routes>
+          <Route path="/edit" element={<EditPage />} />
+          <Route path="/edit/user-edit" element={<UserEdit />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
 }
 
 export default App
