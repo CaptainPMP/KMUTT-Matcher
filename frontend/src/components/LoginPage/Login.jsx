@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom"
 
 function Login() {
+  const history=useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post('http://localhost:4000/users/login', {
         gmail: email,
         password: password,
       });
+
 
       const { token } = response.data;
 
@@ -23,7 +25,7 @@ function Login() {
 
       // Redirect to another page after successful login
       // You may replace '/dashboard' with your desired route
-      window.location.href = '/main';
+      history("/main",{state:{id:email,pass:password}})
     } catch (error) {
       console.error(error);
 
@@ -57,7 +59,7 @@ function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-
+            
             <input
               type="password"
               name="password"

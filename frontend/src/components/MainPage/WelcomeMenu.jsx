@@ -1,25 +1,26 @@
 import React from 'react'
-
-function userProfile(){
-    document.addEventListener('DOMContentLoaded', function () {
-        const userProfileButton = document.getElementsByClassName('UserProfile');
-        const userMenu = document.getElementsByClassName('UserMenu');
-        userProfileButton.addEventListener('click', function () {
-            // Toggle the 'hidden' class on the UserMenu element
-            userMenu.classList.toggle('hidden');
-        });
-    });
-}
+import { Link } from 'react-router-dom';
+import { useNavigate,useLocation } from "react-router-dom"
 
 function WelcomeMenu() {
+    const location=useLocation()
+    const email = location.state.id
+    const password = location.state.pass
+    const history=useNavigate();
+
+    const Goback = async (e) => {
+        history("/main",{state:{id:email,pass:password}})
+    }
     return (
         <nav className='p-4 '>
             <nav className="border-gray-200">
                 <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
-                    <a href="" className="TopMenu flex items-center space-x-1 rtl:space-x-reverse ">
+
+                    <button onClick={Goback} className="TopMenu flex items-center space-x-1 rtl:space-x-reverse ">
                         <img src="https://cdn.discordapp.com/attachments/463329836174409730/1174800497450958858/1-removebg-preview.png?ex=6568e939&is=65567439&hm=7a0ce765ba85734bdd406da7764c04657430dc4b9170e26e316ddec66bfb6b2b&" class="w-20" alt="Flowbite Logo " />
                         <span class="self-center text-3xl font-semibold whitespace-nowrap dark:text-white">KMUTT</span>
-                    </a>
+                    </button >
+
                     <div class=" TopMenu flex items-center justify-end md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse ">
                         <button type="button" className="ํUserProfile flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" onClick={() => { userProfile()}} id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                             <span class="sr-only">Open user menu</span>
@@ -56,13 +57,12 @@ function WelcomeMenu() {
                     </div>
 
                     <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
-                        <h1 className='WelcomeUser text-8xl block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'>Welcome! User</h1>
+                        <h1 className='WelcomeUser text-6xl block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'>Welcome! {email}</h1>
                     </div>
                 </div>
             </nav>
         </nav>
     )
 }
-
 
 export default WelcomeMenu

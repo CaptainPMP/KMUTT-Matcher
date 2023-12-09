@@ -8,6 +8,7 @@ import './components/LoginPage/Login.css'
 import './components/RegisterPage/Register.css'
 import './components/MainPage/MainPage.css'
 import './components/EditPage/EditPage.css'
+import './components/MakeRoomPage/MakeRoomPage.css'
 // Landing Page
 import Navbar from './components/LandingPage/Navbar'
 import Hero from './components/LandingPage/Hero'
@@ -29,10 +30,16 @@ import BoxBox from './components/MainPage/BoxBox'
 //EditPage
 import EditPage from './components/EditPage/EditPage'
 import UserEdit from './components/EditPage/UserEdit'
-
+//MakeRoomPage
+import MakeRoom from './components/MakeRoomPage/MakeRoom'
+import WelcomeMakeRoom from './components/MakeRoomPage/WelcomeMakeRoom'
 
 function App() {
   return (
+    // <div>
+    //   <WelcomeMakeRoom/>
+    //   <MakeRoom />
+    // </div>
     <BrowserRouter>
       <div>
         {/* กำหนดเส้นทางสำหรับหน้าแรก */}
@@ -48,7 +55,7 @@ function App() {
           <Route path="/login" element={<div>
             <Navbar></Navbar>
             <Login />
-            </div>} />
+          </div>} />
         </Routes>
 
         {/* กำหนดเส้นทางสำหรับหน้า Register */}
@@ -56,7 +63,7 @@ function App() {
           <Route path="/register" element={<div>
             <Navbar></Navbar>
             <Register />
-            </div>} />
+          </div>} />
         </Routes>
 
         {/* กำหนดเส้นทางสำหรับหน้า Main */}
@@ -73,6 +80,15 @@ function App() {
         <Routes>
           <Route path="/edit" element={<EditPage />} />
           <Route path="/edit/user-edit" element={<UserEdit />} />
+        </Routes>
+
+        {/* กำหนดเส้นทางสำหรับหน้า Creaate */}
+        <Routes>
+          <Route path="/create_room" element={<div>
+          <WelcomeMenu />
+          <MakeRoom />
+          </div>
+          } />
         </Routes>
       </div>
     </BrowserRouter>

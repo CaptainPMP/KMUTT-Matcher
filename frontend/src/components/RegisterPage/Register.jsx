@@ -31,6 +31,7 @@ function Register() {
       } else {
         setError('');
         console.log('Registration successful!');
+        window.location.href = '/login';
         // Redirect to login page
       }
     } catch (error) {
