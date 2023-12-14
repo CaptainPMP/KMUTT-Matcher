@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 
 const socialmediaSchema = mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId, ref:"User",
+    },
     line: {
       type: String,
       required: true,
@@ -20,4 +23,4 @@ const socialmediaSchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Socialmedia", socialmediaSchema);
+module.exports = mongoose.model("SocialMedia", socialmediaSchema);

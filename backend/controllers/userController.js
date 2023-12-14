@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const User = require('../models/userModel')
 const validator = require('validator');
 const bcrypt = require('bcrypt');
+const generateToken = require('../config/generateToken');
+const asyncHandler = require("express-async-handler");
 
 // Get all users
 const getUsers = async (req, res) => {
@@ -30,7 +32,7 @@ const getUser = async (req, res) => {
 
 // Register user to DB
 const createUser = async (req, res) => {
-    const {email, password, full_name, confirm_password} = req.body;
+    const {email, password, full_name, confirm_password, pic} = req.body;
     const existingUser = await User.findOne({email});
 
     let emptyFields = []
@@ -60,6 +62,7 @@ const createUser = async (req, res) => {
         return res.status(400).json({ error: 'Email already exists' });
     }
     if (!validator.isEmail(email)) {
+        errorMessage.push('Invalid email');
         return res.status(400).json({ error: 'Invalid email address' });
     }
 
@@ -69,12 +72,64 @@ const createUser = async (req, res) => {
     const hashedPassword = await bcrypt.hashSync(password, salt);
 
     try {
-        const user = await User.create({email, password: hashedPassword, full_name})
-        res.status(201).json({user, message: "User registered successfully"})
+        const user = await User.create({email, password: hashedPassword, full_name, pic})
+        res.status(201).json({
+            _id: user._id,
+            email: user.email,
+            full_name: user.full_name,
+            pic: user.pic,
+            token: generateToken(user._id),
+        })
     } catch (error) {
         res.status(400).json({err: error.message})
     }
 
+}
+
+const loginUser = async (req, res) => {
+    const {email, password} = req.body;
+    const user = await User.findOne({email});
+    let errorMessage = []
+    let emptyFields = []
+
+    // if no email provided
+    if(!email) {
+        emptyFields.push('email')
+    }
+
+    // if no password provided
+    if(!password) {
+        emptyFields.push('password')
+    }
+
+    // if there are empty fields
+    if(emptyFields.length > 0){
+        return res.status(400).json({error: "Please fill in all fields", emptyFields})
+    }
+
+    // if not email
+    if (!validator.isEmail(email)) {
+        return res.status(400).json({ error: 'Invalid email address' });
+    }
+
+    // if user not found
+    if (!user) {
+        // Email does not exist, return an error response
+        errorMessage.push('Email does not exist');
+        return res.status(400).json({ error: 'Email does not exist' });
+    }
+    if (!bcrypt.compareSync(password, user.password)) {
+        // Password does not match, return an error response
+        errorMessage.push('Password does not match');
+        return res.status(400).json({ error: 'Password does not match' });
+    }
+    res.status(201).json({
+        _id: user._id,
+        email: user.email,
+        full_name: user.full_name,
+        pic: user.pic,
+        token: generateToken(user._id),
+    })
 }
 
 // Update a user
@@ -109,10 +164,23 @@ const deleteUser = async (req, res) => {
     res.status(200).json(user);
 }
 
+const allUsers = asyncHandler(async (req, res) => {
+    const keyword = req.query.search ? {
+        $or : [
+            { full_name: {$regex : req.query.search, $options: "i"}},
+            { email: {$regex : req.query.search, $options: "i"}},
+        ],
+    } : {};
+    const users = await User.find(keyword).find({_id: {$ne: req.user._id}});
+    res.send(users);
+})
+
 module.exports = {
     getUsers,
     getUser,
     createUser,
+    loginUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    allUsers,
 }

@@ -1,23 +1,25 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
-import Navbar from '../components/Navbar'
-import Button from '../components/Button'
-import { Link } from "react-router-dom";
+import { Box } from "@chakra-ui/layout";
+import { useState } from "react";
+import GroupBox from "../components/GroupBox";
+import MyGroup from "../components/MyGroup";
+import SideDrawer from "../components/miscellaneous/SideDrawer";
+import { GroupState } from "../Context/GroupProvider";
 
 const Home = () => {
-  return (
-    <div>
-      <Navbar />
-      <div className="container mx-auto mt-8 text-center">
-        <h1 className="text-4xl font-bold mb-4">Homepage</h1>
-        <p className="text-gray-600 mb-4">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Odio ut sem nulla pharetra.
-        </p>
-        <Link to="/" className="bg-red-600 text-white px-4 py-2 rounded">Logout</Link>
-      </div>
-    </div>
-  )
-}
+  const [fetchAgain, setFetchAgain] = useState(false);
+  const { user } = GroupState();
 
-export default Home
+  return (
+    <div style={{ width: "100%" }}>
+      {user && <SideDrawer />}
+      <Box d="flex" justifyContent="space-between" w="100%" h="91.5vh" p="10px">
+        {user && <MyGroup fetchAgain={fetchAgain} />}
+        {user && (
+          <GroupBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
+        )}
+      </Box>
+    </div>
+  );
+};
+
+export default Home;

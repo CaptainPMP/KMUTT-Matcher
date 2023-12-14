@@ -3,22 +3,15 @@ import React from 'react'
 import Button from "../components/Button";
 import Navbar from '../components/Navbar';
 import { Link } from "react-router-dom";
+import { Container, Box, Text, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import Login from './Login';
+import Register from './Register';
 
 const Landing = () => {
   return (
-    // <div>
-    //   <nav>
-    //       <Button dest="/login">Login</Button>
-    //       <Button dest="/register">Register</Button>
-    //     </nav>
-    //     <div className="container p-4">
-
-    //         <Button dest="/home">Start match your close MBTI friends</Button>
-    //     </div>
-    // </div>
-
     <div>
       <Navbar />
+      
       <div className="container mx-auto mt-8 text-center">
         <h1 className="text-4xl font-bold mb-4">KMUTT Matcher</h1>
         <p className="text-gray-600 mb-4">
