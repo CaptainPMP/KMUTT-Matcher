@@ -105,4 +105,32 @@ router.post('/searchFullName', async (req, res) => {
     }
 });
 
+//Delete User
+router.delete('/deleteUser', async (req, res) => {
+    try {
+      const { gmail, password } = req.body;
+  
+      // Check if the user with the provided Gmail and password exists
+      const user = await User.findOne({ gmail, password });
+  
+      if (!user) {
+        return res.status(404).json({ message: 'User not found.' });
+      }
+  
+      // Display an alert for confirmation, then proceed with deletion
+      const confirm = req.query.confirm;
+  
+      if (confirm !== 'true') {
+        return res.status(200).json({ message: 'Please confirm deletion by providing "?confirm=true" in the query parameter.' });
+      }
+  
+      // Proceed with user deletion
+      await user.remove();
+      res.status(200).json({ message: 'User deleted successfully.' });
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      res.status(500).json({ message: 'Internal server error.' });
+    }
+  });
+  
 module.exports = router;

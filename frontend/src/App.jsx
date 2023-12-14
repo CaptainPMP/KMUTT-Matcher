@@ -46,7 +46,7 @@ function App() {
     // <div>
     //   <JoinRoom />
     // </div>
-    <BrowserRouter>
+
       <div>
         {/* กำหนดเส้นทางสำหรับหน้าแรก */}
         <Routes>
@@ -126,7 +126,6 @@ function App() {
         </Routes>
 
       </div>
-    </BrowserRouter>
   );
 }
 
