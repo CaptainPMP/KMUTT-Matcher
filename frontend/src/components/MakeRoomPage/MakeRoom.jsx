@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate,useLocation } from 'react-router-dom';
+import { axiosInstance } from '../../../lib/axios';
 
 function MakeRoom() {
   const location=useLocation()
@@ -13,7 +14,7 @@ function MakeRoom() {
 
   const handleCreateRoom = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/users/createRoom', {
+      const response = await axiosInstance.post('/users/createGroup', {
         group_name: groupName,
         group_description: groupDescription,
         group_host: email,

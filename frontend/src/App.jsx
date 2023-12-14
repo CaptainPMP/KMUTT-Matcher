@@ -9,6 +9,7 @@ import './components/RegisterPage/Register.css'
 import './components/MainPage/MainPage.css'
 import './components/EditPage/EditPage.css'
 import './components/MakeRoomPage/MakeRoomPage.css'
+import './components/EachGroup/EachGroup.css'
 // Landing Page
 import Navbar from './components/LandingPage/Navbar'
 import Hero from './components/LandingPage/Hero'
@@ -33,12 +34,17 @@ import UserEdit from './components/EditPage/UserEdit'
 //MakeRoomPage
 import MakeRoom from './components/MakeRoomPage/MakeRoom'
 import WelcomeMakeRoom from './components/MakeRoomPage/WelcomeMakeRoom'
+//JoinRoomPage
+import JoinRoom from './components/JoinPage/JoinRoom'
+//MbitPage
+import MbtiForm from './components/MbtiForm/MbtiForm'
+//
+import EachGroup from './components/EachGroup/EachGroup'
 
 function App() {
   return (
     // <div>
-    //   <WelcomeMakeRoom/>
-    //   <MakeRoom />
+    //   <JoinRoom />
     // </div>
     <BrowserRouter>
       <div>
@@ -70,8 +76,10 @@ function App() {
         <Routes>
           <Route path="/main" element={<div>
             <BottomMenu />
+            
             <WelcomeMenu />
             <BoxBox />
+            
           </div>}>
           </Route>
         </Routes>
@@ -84,12 +92,39 @@ function App() {
 
         {/* กำหนดเส้นทางสำหรับหน้า Creaate */}
         <Routes>
-          <Route path="/create_room" element={<div>
+          <Route path="/create_group" element={<div>
           <WelcomeMenu />
           <MakeRoom />
-          </div>
-          } />
+          </div>} />
         </Routes>
+
+        <Routes>
+          <Route path="/join_group" element={<div>
+            <WelcomeMenu />
+            <JoinRoom />
+          </div>} />
+        </Routes>
+
+        <Routes>
+          <Route path="/edit_profile" element={<div>
+            <WelcomeMenu/>
+            <UserEdit/>
+          </div>} />
+        </Routes>
+
+        <Routes>
+          <Route path="/mbti_collecting" element={<div>
+            <WelcomeMenu/>
+            <MbtiForm/>
+          </div>} />
+        </Routes>
+
+        <Routes>
+          <Route path="/group/:groupName" element={<div>
+            <EachGroup/>
+          </div>} />
+        </Routes>
+
       </div>
     </BrowserRouter>
   );

@@ -16,7 +16,7 @@ const groupSchema = mongoose.Schema(
       required: true,
     },
     group_membersName: {
-      type: String,
+      type: [String], // Ensure that group_membersName is defined as an array of strings
     },
   },
   {

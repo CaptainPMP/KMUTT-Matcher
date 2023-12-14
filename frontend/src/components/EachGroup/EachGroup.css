@@ -1,0 +1,111 @@
+.Show {
+    width: 15%;
+    position: sticky;
+    top: 0;
+}
+.RandomSide{
+    width: 85%;
+}
+
+.KMUTT {
+    width: 7.5rem;
+}
+
+.Group {
+    width: 15rem;
+    height: 6rem;
+}
+.MemberName{
+    height: 8rem;
+}
+
+.MemberName2{
+    width: 30rem;
+    height: 8rem;
+}
+.ShowAllGroups{
+    width: 94%;
+}
+
+.ShowAllMem{
+    width: 94%;
+    align-items: center;
+}
+.ShowEachGroups {
+    width: 100%
+}
+
+.Text2 {
+    font-size: 2.0rem;
+    line-height: 3.3rem;
+}
+
+.Rainbow2 {
+
+    background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(90deg, rgb(29, 18, 145) 0%, #FF0076 0%, #590FB7 100%);
+}
+
+.RandomSet{
+    padding: 30px 30px;
+    justify-content: space-between;
+    width: 80rem;
+    height: 10rem;
+}
+
+.RandomText{
+
+}
+
+.Summit{
+    width: 11.5rem;
+}
+
+.Export{
+    width: 11.5rem;
+}
+.RandomChoice{
+    width: 9.5rem;
+}
+
+@media (min-width: 992px) {
+    .ShowAllGroups {
+      grid-template-columns: repeat(3, 1fr);
+      justify-content: center;
+      align-items: center;
+      
+    }
+  }
+  
+  
+  @media (max-width: 991px) {
+    .ShowAllGroups {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 599px) {
+    .ShowAllGroups {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  @media (min-width: 992px) {
+    .ShowAllMem {
+      grid-template-columns: repeat(3, 1fr);
+      
+    }
+  }
+  
+  @media (max-width: 991px) {
+    .ShowAllMem {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 599px) {
+    .ShowAllMem {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }

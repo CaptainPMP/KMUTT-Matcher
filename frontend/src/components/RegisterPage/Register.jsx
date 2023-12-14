@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { axiosInstance } from '../../../lib/axios';
 
 function Register() {
   const [gmail, setGmail] = useState('');
@@ -17,7 +18,7 @@ function Register() {
     }
 
     try {
-      const response = await axios.post('http://localhost:4000/users/register', {
+      const response = await axiosInstance.post('/users/register', {
         gmail,
         password,
         full_name,

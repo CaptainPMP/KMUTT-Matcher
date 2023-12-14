@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom"
+import { axiosInstance } from '../../../lib/axios';
 
 function Login() {
   const history=useNavigate();
@@ -12,7 +13,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:4000/users/login', {
+      const response = await axiosInstance.post('/users/login', {
         gmail: email,
         password: password,
       });

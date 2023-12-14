@@ -85,4 +85,24 @@ router.delete('/:id', async (req, res) => {
     res.status(200).json(user);
 })
 
+//find full name
+router.post('/searchFullName', async (req, res) => {
+    const { gmail, password } = req.body;
+
+    try {
+        // Search for user by gmail and password
+        const user = await User.findOne({ gmail, password });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // If user is found, send back the full name
+        res.status(200).json({ full_name: user.full_name });
+    } catch (error) {
+        console.error('Error searching for full name:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 module.exports = router;
