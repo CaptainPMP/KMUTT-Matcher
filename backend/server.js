@@ -1,6 +1,7 @@
 
 require('dotenv').config()
 
+const cookieParser = require('cookie-parser');
 const express = require('express')
 const mongoose = require('mongoose')
 const userRoutes = require("./routes/userRoute")
@@ -8,7 +9,9 @@ const auth = require("./routes/auth")
 const groupRoute = require("./routes/groupRoute")
 const mbtiRoute = require("./routes/mbtiRoute")
 const cors = require("cors")
+
 const app = express();
+app.use(cookieParser());
 
 app.use(cors({
     origin:'http://localhost:5173',

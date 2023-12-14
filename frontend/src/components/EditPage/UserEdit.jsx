@@ -68,6 +68,9 @@ function UserEdit() {
           </div>
         </div>
       </div>
+      <div className=' bg-blue-500 flex justify-end items-end font-bold mx-20'>
+        <button className='bg-red-500 rounded-full w-20'>Delete Account</button>
+      </div>
     </div>
   );
 }

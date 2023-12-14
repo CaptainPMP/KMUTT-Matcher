@@ -4,6 +4,9 @@ const router = express.Router();
 const User = require('../models/userModel');
 
 // ... (CORS and body-parser middleware setup)
+function generateAccessToken(user) {
+  return jwt.sign(user, process.env.SECRET_KEY, {expiresIn: '1hr'});
+}
 
 router.post('/login', async (req, res) => {
   try {
@@ -11,6 +14,8 @@ router.post('/login', async (req, res) => {
 
     // Find the user by email
     const user = await User.findOne({ gmail });
+    const full_name = user.full_name;
+    const new_created_user = {gmail, full_name};
 
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials' });
@@ -23,7 +28,8 @@ router.post('/login', async (req, res) => {
 
     // Generate a JWT token
     const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
-
+    const accessToken = generateAccessToken(new_created_user);
+    res.cookie('token', accessToken, { httpOnly: true, secure: true });
     res.status(200).json({ token });
   } catch (error) {
     console.error(error);
