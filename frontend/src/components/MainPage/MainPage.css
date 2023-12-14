@@ -1,0 +1,72 @@
+.text-7xl {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .text-7xl {
+      font-size: 5xl;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .text-7xl {
+      font-size: 3xl;
+    }
+}
+
+.TopMenu{
+    width: 150px;
+}
+
+.MenuBottom{
+    max-height: 500px;
+    height: 150px;
+
+}
+
+.Room{
+  width: 90%;
+  margin-bottom: 150px;
+
+}
+
+.EachRoom{
+  height: 325px;
+
+}
+
+@media (min-width: 992px) {
+  .Room {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+@media (max-width: 991px) {
+  .Room {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 599px) {
+  .Room {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.Text1 {
+  font-size: 2.5rem;
+  line-height: 3.3rem;
+}
+
+.Rainbow {
+
+  background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(90deg, rgb(29, 18, 145) 0%, #FF0076 0%, #590FB7 100%);
+}
+
+๊.UserMenu{
+  position: absolute;
+}

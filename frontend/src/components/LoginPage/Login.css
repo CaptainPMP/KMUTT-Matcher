@@ -1,0 +1,53 @@
+
+.LoginForm {
+    padding: 110px 0px ;
+
+}
+
+.InfoLogin {
+    padding: 50px 100px;
+}
+
+.BoxLogin{
+    padding: 0px 150px;
+    width: 50%;
+}
+
+@media (max-width: 768px) {
+    .LoginForm {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .BoxLogin {
+      width: 100%;
+      margin: 0 auto;
+    }
+  
+    .UserInfo {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .InfoLogin {
+      margin: 10px 0;
+    }
+  
+    .btn {
+      margin: 10px 0;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .WelcomeText, .UserInfo {
+      padding: 10px;
+    }
+  
+    .InfoLogin {
+      font-size: 16px;
+    }
+  
+    .btn {
+      font-size: 14px;
+    }
+  }
