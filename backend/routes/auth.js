@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/userModel');
+const bcrypt = require('bcrypt');
 
 // ... (CORS and body-parser middleware setup)
 function generateAccessToken(user) {
@@ -22,10 +23,9 @@ router.post('/login', async (req, res) => {
     }
 
     // For simplicity, compare the provided password directly with the user's password
-    if (password !== user.password) {
+    if (!bcrypt.compareSync(password, user.password)) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
-
     // Generate a JWT token
     const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
     const accessToken = generateAccessToken(new_created_user);

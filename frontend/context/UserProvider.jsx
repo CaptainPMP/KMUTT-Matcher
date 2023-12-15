@@ -11,11 +11,13 @@ const UserProvider = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation()
   useEffect(() => {
-    let userInfo = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    // let userInfo = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    // const userInfo = Cookies.get('token')
+    const userInfo = localStorage.getItem('token');
     setUser(userInfo);
 
-    // if (!userInfo && (location.pathname != '/login') && (location.pathname != '/register')) navigate("/");
-    console.log("user info: ", userInfo)
+    if (!user && (location.pathname != '/login') && (location.pathname != '/register')) navigate("/");
+    console.log("user: ", user)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 

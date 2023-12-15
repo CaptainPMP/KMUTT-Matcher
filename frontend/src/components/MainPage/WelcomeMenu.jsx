@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { UserState } from '../../../context/UserProvider';
+import Cookies from 'js-cookie';
 
 // ... (imports)
 
@@ -8,6 +10,7 @@ function WelcomeMenu() {
     const email = location.state.id;
     const password = location.state.pass;
     const history = useNavigate();
+    const { setUser } = UserState();
 
     // State to manage the visibility of UserMenu
     const [userMenuVisible, setUserMenuVisible] = useState(false);
@@ -27,6 +30,13 @@ function WelcomeMenu() {
     // Function to navigate to "/edit_profile"
     const navigateToEditProfile = () => {
         history("/edit_profile", { state: { id: email, pass: password } });
+    }
+
+    const handleSignOut = () => {
+        localStorage.removeItem("token")
+        setUser(undefined);
+        history("/login")
+        console.log("removed");
     }
 
     // Effect to close UserMenu when clicking outside
@@ -85,7 +95,7 @@ function WelcomeMenu() {
                                     </button>
                                 </li>
                                 <li>
-                                    <button class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</button>
+                                    <button class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" onClick={handleSignOut}>Sign out</button>
                                 </li>
                             </ul>
                         </div>

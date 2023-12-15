@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('../models/userModel');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const router = express.Router();
 
@@ -42,7 +43,8 @@ router.post('/register', async (req, res) => {
     }
 
     try {
-        const user = await User.create({gmail, password, full_name})
+        const encrypt_password = await bcrypt.hashSync(password, 10)
+        const user = await User.create({gmail, password: encrypt_password, full_name})
         res.status(200).json(user)
     } catch (error) {
         res.status(400).json({err: error.message})
