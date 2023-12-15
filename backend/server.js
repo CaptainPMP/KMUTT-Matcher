@@ -8,6 +8,7 @@ const userRoutes = require("./routes/userRoute")
 const auth = require("./routes/auth")
 const groupRoute = require("./routes/groupRoute")
 const mbtiRoute = require("./routes/mbtiRoute")
+const globalRoute = require("./routes/globalRoute")
 const cors = require("cors")
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(cors({
 }))
 
 app.use(express.json());
+app.use("/", globalRoute)
 app.use('/users', userRoutes)
 app.use('/users', auth)
 app.use('/users', groupRoute)

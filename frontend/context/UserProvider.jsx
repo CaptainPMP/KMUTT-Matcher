@@ -16,7 +16,7 @@ const UserProvider = ({ children }) => {
     const userInfo = localStorage.getItem('token');
     setUser(userInfo);
 
-    if (!user && (location.pathname != '/login') && (location.pathname != '/register')) navigate("/");
+    // if (!user && (location.pathname != '/login') && (location.pathname != '/register')) navigate("/");
     console.log("user: ", user)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);

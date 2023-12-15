@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { UserState } from '../../../context/UserProvider';
 import Cookies from 'js-cookie';
+import { axiosInstance } from '../../../lib/axios';
 
 // ... (imports)
 
@@ -41,6 +42,11 @@ function WelcomeMenu() {
 
     // Effect to close UserMenu when clicking outside
     useEffect(() => {
+        axiosInstance.get("/main")
+            .then((res) => {
+                console.log("Hi");
+                if(res.status !== 201) history("/login")
+            })
         const handleClickOutside = (event) => {
             if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
                 setUserMenuVisible(false);
