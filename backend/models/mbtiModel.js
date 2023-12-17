@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 
 const mbtiSchema = mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId, ref:"User",
+    },
     Ne: {
       type: Number, // Adjust the type as needed
     },

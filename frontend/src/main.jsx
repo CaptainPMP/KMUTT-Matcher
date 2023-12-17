@@ -8,7 +8,7 @@ import { IconContext } from "phosphor-react";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-  <IconContext.Provider
+    <IconContext.Provider
       value={{
         color: "black",
         size: 24,

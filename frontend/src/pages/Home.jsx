@@ -1,10 +1,27 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../components/Navbar'
-import Button from '../components/Button'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { axiosInstance } from '../../lib/axios';
+import { DataContext } from '../App';
+import { useContext } from 'react';
+
+
 
 const Home = () => {
+  const {userInfo, setUserInfo } = useContext(DataContext)
+  const navigate = useNavigate()
+  useEffect(() => {
+    axiosInstance.get('/api/checkToken')
+      .then((res) => {
+        setUserInfo({
+          id: res.data.token.id.id,
+          
+        })
+      })
+      .catch((err) => navigate('/login'))
+  },[])
+
   return (
     <div>
       <Navbar />
