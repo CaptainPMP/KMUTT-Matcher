@@ -1,10 +1,19 @@
 const User = require("../models/userModel");
-const hashPassword = require("../lib/managePassword")
+const {hashedPassword} = require("../lib/managePassword")
+// import { PrismaClient } from '@prisma/client'
+const {PrismaClient} = require('@prisma/client')
+const prisma = new PrismaClient()
+const validator = require('validator');
+const generateToken = require("../config/generateToken");
 
 const register = async (req, res) => {
     try {
         const {email, password, full_name, confirm_password, pic} = req.body;
-        const existingUser = await User.findOne({email});
+        const existingUser = await prisma.user.findUnique({
+            where: {
+                email: email,
+              },
+        })
 
         let emptyFields = []
 
@@ -34,7 +43,7 @@ const register = async (req, res) => {
             // If email is not valid, return an error response
             return res.status(400).json({ error: 'Invalid email, Please enter a correct email form' });
         }
-
+        
         const createdUser = {
             email, 
             password: await hashedPassword(password), 
@@ -42,7 +51,13 @@ const register = async (req, res) => {
             pic
         }
 
-        const user = await User.create(createdUser)
+        // const user = await User.create(createdUser)
+        const user = await prisma.user.create({
+            data: createdUser
+        })
+        const payload = {id: user._id, email: user.email, full_name: user.full_name}
+        const token = generateToken(payload)
+        res.cookie("token", token, {httpOnly: true})
         res.status(201).json(createdUser)
     } catch (error) {
         console.log(error);

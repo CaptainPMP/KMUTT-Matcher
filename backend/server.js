@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const login = require('./controllers/loginController');
 const register = require('./controllers/registerController');
 const checkToken = require('./controllers/checkTokenController');
+const logout = require('./controllers/logoutController');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.get('/api/checkToken', checkToken)
 
 app.post('/api/login', login)
 app.post('/api/register', register)
+app.get('/api/logout', logout)
 
 mongoose
     .connect(process.env.MONGO_URI)

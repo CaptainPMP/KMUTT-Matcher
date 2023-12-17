@@ -2,12 +2,19 @@ const User = require('../models/userModel');
 const generateToken = require('../config/generateToken')
 const validator = require('validator');
 const { matchPassword } = require('../lib/managePassword');
+// import { PrismaClient } from '@prisma/client'
+const {PrismaClient} = require('@prisma/client')
+const prisma = new PrismaClient()
 
 const login = async (req, res) => {
     try {
         const {email, password} = req.body;
-        const user = await User.findOne({email});
-        const full_name = user.full_name
+        // const user = await User.findOne({email});
+        const user = await prisma.user.findUnique({
+            where: {
+                email: email,
+              },
+        })
         let errorMessage = []
         let emptyFields = []
 

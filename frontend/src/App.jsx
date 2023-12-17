@@ -14,6 +14,7 @@ function App() {
     id: "",
     full_name: "",
     email: "",
+    isLogin: false,
   })
 
   return (

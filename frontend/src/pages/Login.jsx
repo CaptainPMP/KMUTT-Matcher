@@ -4,12 +4,14 @@ import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeSlash  } from "phosphor-react";
 import { axiosInstance } from "../../lib/axios";
+import ClipLoader from "react-spinners/ClipLoader";
 // import { Button, useToast } from "@chakra-ui/react";
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
   const togglePasswordVisibility = () => {
@@ -17,6 +19,7 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
+    setIsLoading(true)
     e.preventDefault();
 
     const user = {email, password}
@@ -25,6 +28,7 @@ const Login = () => {
 
     axiosInstance.post("/api/login", user)
         .then((res) => {
+          setIsLoading(false)
           navigate('/home')
         })
         .catch((error) => {
@@ -73,12 +77,13 @@ const Login = () => {
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="submit"
-              >
-                Login
-              </button>
+            <button
+              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              type="submit"
+            >
+              {isLoading? <ClipLoader /> : "Login" }
+            </button>
+
             </div>
           </form>
           <p className="text-center text-gray-500 text-xs">&copy; 2023 My App. All rights reserved.</p>

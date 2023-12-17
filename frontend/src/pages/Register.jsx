@@ -4,6 +4,8 @@ import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeSlash  } from "phosphor-react";
 import axios from "axios"
+import { axiosInstance } from "../../lib/axios";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Register = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -11,6 +13,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
   
   const navigate = useNavigate()
 
@@ -19,21 +22,19 @@ const Register = () => {
   };
 
   const handleSubmit = async (e) => {
+    setIsLoading(true)
     e.preventDefault()
 
     const user = {full_name: fullname, email, password, confirm_password: confirmPassword}
 
     console.log("submited: ", user);
 
-    axios.post("http://localhost:4000/users", user)
+    axiosInstance.post("/api/register", user)
         .then((res) => {
-            setFullName("")
-            setEmail("")
-            setPassword("")
-            setConfirmPassword("")
-            if(res.status === 201){
-              navigate('/home')
-            }
+          setIsLoading(false)
+          if(res.status === 201){
+            navigate('/home')
+          }
         })
         .catch((error) => {
             console.log(error);
@@ -121,12 +122,12 @@ const Register = () => {
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="submit"
-              >
-                Register
-              </button>
+            <button
+              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              type="submit"
+            >
+              {isLoading? <ClipLoader /> : "Register" }
+            </button>
             </div>
           </form>
           <p className="text-center text-gray-500 text-xs">&copy; 2023 My App. All rights reserved.</p>

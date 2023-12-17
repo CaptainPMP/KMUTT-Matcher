@@ -5,10 +5,10 @@ const matchPassword = async (password, hash) => {
     return isMatch;
 };
 
-const hashPassword = async (password) => {
-    const salt = await bcrypt.genSalt(saltRounds); // Generate a random string, which we will add to the password before hashing
+const hashedPassword = async (password) => {
+    const salt = await bcrypt.genSalt(10); // Generate a random string, which we will add to the password before hashing
     const hash = await bcrypt.hash(password, salt); // Hash the password, using the random string as "salt"
     return hash;
 };
 
-module.exports = {matchPassword, hashPassword}
+module.exports = {matchPassword, hashedPassword}

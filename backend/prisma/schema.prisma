@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGO_URI")
+}
+
+// schema.prisma
+
+model User {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  email       String    @unique
+  password    String
+  full_name   String
+  gender      String?
+  birth_date  DateTime?
+  description String?
+  pic         String    @default("https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  socialmedia Socialmedia?
+  mbti        Mbti?
+  groups      GroupUser[] // Change here to use the junction table
+}
+
+model Socialmedia {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  user      User       @relation(fields: [userId], references: [id])
+  userId    String     @db.ObjectId @unique
+  line      String?     
+  facebook  String?     
+  instagram String?    
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Mbti {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String    @unique @db.ObjectId
+  Ne        Int?
+  Ni        Int?
+  Te        Int?
+  Ti        Int?
+  Se        Int?
+  Si        Int?
+  Fe        Int?
+  Fi        Int?
+  Type      String?
+  Enneagram String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Group {
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  group_name       String    
+  group_description String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  users            GroupUser[] // Change here to use the junction table
+}
+
+model GroupUser {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.ObjectId
+  group     Group    @relation(fields: [groupId], references: [id])
+  groupId   String   @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
