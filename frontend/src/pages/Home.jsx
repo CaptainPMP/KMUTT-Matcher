@@ -1,61 +1,99 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react'
-import Navbar from '../components/Navbar'
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 import { axiosInstance } from '../../lib/axios';
 import { DataContext } from '../App';
 import { useContext } from 'react';
-
-
+import Footer from '../components/Footer';
+import GroupCard from '../components/GroupCard';
 
 const Home = () => {
-  const {userInfo, setUserInfo } = useContext(DataContext)
-  const navigate = useNavigate()
+  const { userInfo, setUserInfo } = useContext(DataContext);
+  const navigate = useNavigate();
+  const [userGroups, setUserGroups] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogout = () => {
-    axiosInstance.get('/api/logout')
+    axiosInstance
+      .get('/api/logout')
       .then((res) => {
         setUserInfo({
-          id: "",
-          full_name: "",
-          email: "",
-          isLogin: false
-        })
-        navigate('/login')
+          id: '',
+          full_name: '',
+          email: '',
+          isLogin: false,
+        });
+        navigate('/login');
       })
       .catch((err) => {
-        console.log("logout error is:", err)
-      })
+        console.log('logout error is:', err);
+      });
+  };
+
+  const handleDeleteGroup = () => {
+
   }
 
-
   useEffect(() => {
-    axiosInstance.get('/api/checkToken')
+    setIsLoading(true);
+    // Check token when the component mounts
+    axiosInstance
+      .get('/api/checkToken')
       .then((res) => {
-        console.log("res: ", res);
+        console.log("home res:", res);
         setUserInfo({
           id: res.data.token.id.id,
           full_name: res.data.token.id.full_name,
           email: res.data.token.id.email,
-          isLogin: true
-        })
+          isLogin: true,
+        });
       })
-      .catch((err) => navigate('/login'))
-  },[])
+      .catch(() => {
+        // If no token, navigate to login
+        navigate('/login');
+      });
+  }, []); // Empty dependency array means this effect runs only once when the component mounts
+
+  useEffect(() => { 
+    // Fetch user groups information
+    axiosInstance
+      .get(`/api/user/${userInfo.id}/groups`)
+      .then((res) => {
+        setUserGroups(res.data.groups);
+        setIsLoading(false);
+        // console.log("res", res);
+        console.log(userInfo);
+      })
+      .catch((err) => {
+        console.error('Error fetching user groups:', err);
+      });
+  }, [userInfo.id]);
 
   return (
     <div>
       <Navbar />
       <div className="container mx-auto mt-8 text-center">
         <h1 className="text-4xl font-bold mb-4">Hi {userInfo.full_name}</h1>
-        <p className="text-gray-600 mb-4">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Odio ut sem nulla pharetra.
-        </p>
-        <Link to="/" className="bg-red-600 text-white px-4 py-2 rounded" onClick={handleLogout}>Logout</Link>
+        <div className="flex flex-wrap">
+          {isLoading && <p>Loading your groups...</p>}
+          {!isLoading &&
+            userGroups.map((group) => (
+              <GroupCard
+                key={group.id}
+                group={group}
+                isAdmin={group.isAdmin}  
+                onDeleteClick={handleDeleteGroup}
+              />
+            ))}
+        </div>
+        <Link to="/" className="bg-red-600 text-white px-4 py-2 rounded" onClick={handleLogout}>
+          Logout
+        </Link>
       </div>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

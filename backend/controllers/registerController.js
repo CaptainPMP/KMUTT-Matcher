@@ -55,7 +55,7 @@ const register = async (req, res) => {
         const user = await prisma.user.create({
             data: createdUser
         })
-        const payload = {id: user._id, email: user.email, full_name: user.full_name}
+        const payload = {id: user.id, email: user.email, full_name: user.full_name}
         const token = generateToken(payload)
         res.cookie("token", token, {httpOnly: true})
         res.status(201).json(createdUser)

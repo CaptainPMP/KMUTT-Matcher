@@ -49,12 +49,13 @@ const login = async (req, res) => {
             errorMessage.push('Password does not match');
             return res.status(400).json({ error: 'Password does not match' });
         }
-        const payload = {id: user._id, email: user.email, full_name: user.full_name}
+        const payload = {id: user.id, email: user.email, full_name: user.full_name}
+        console.log("payload:", payload);
         console.log("payload: ", payload);
         const token = generateToken(payload)
         res.cookie("token", token, {httpOnly: true})
         res.status(201).json({
-            _id: user._id,
+            id: user.id,
             email: user.email,
             full_name: user.full_name,
             pic: user.pic,

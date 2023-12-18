@@ -9,6 +9,10 @@ const login = require('./controllers/loginController');
 const register = require('./controllers/registerController');
 const checkToken = require('./controllers/checkTokenController');
 const logout = require('./controllers/logoutController');
+const { handleAddUserToGroup, handleCreateGroup } = require('./controllers/groupController');
+const { getGroupById } = require('./controllers/getGroupController');
+const { getAllGroup } = require('./controllers/getAllGroupController');
+const joinGroup = require('./controllers/joinGroupController');
 
 const app = express();
 
@@ -28,6 +32,10 @@ app.get('/api/checkToken', checkToken)
 app.post('/api/login', login)
 app.post('/api/register', register)
 app.get('/api/logout', logout)
+app.post('/api/createGroup', handleCreateGroup)
+app.get('/api/group/:groupId', getGroupById)
+app.get('/api/user/:userId/groups', getAllGroup)
+app.post('/api/joinGroup', joinGroup)
 
 mongoose
     .connect(process.env.MONGO_URI)

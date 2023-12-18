@@ -72,6 +72,7 @@ model GroupUser {
   userId    String   @db.ObjectId
   group     Group    @relation(fields: [groupId], references: [id])
   groupId   String   @db.ObjectId
+  isAdmin   Boolean  @default(false) // New field to indicate admin status
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
