@@ -6,9 +6,11 @@ import { axiosInstance } from '../../lib/axios';
 import { DataContext } from '../App';
 
 const Group = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const { groupId } = useParams();
   const [groupDetails, setGroupDetails] = useState(null);
-  const { userInfo, setUserInfo } = useContext(DataContext);
+  // const { userInfo, setUserInfo } = useContext(DataContext);
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'))
   const [isCopy, setIsCopy] = useState(false)
   const navigate = useNavigate();
   const groupIdRef = useRef(null);
@@ -21,27 +23,25 @@ const Group = () => {
         console.log("get api group", res);
         setGroupDetails(res.data);
         console.log("userInfo ", userInfo);
+        console.log("group details is",groupDetails);
       })
       .catch((error) => {
         console.error('Error fetching group details:', error);
       });
 
-      axiosInstance
+  }, [groupId]);
+
+  useEffect(() => {
+    axiosInstance
       .get('/api/checkToken')
       .then((res) => {
         console.log("res is", res);
-        setUserInfo({
-          id: res.data.token.id.id,
-          full_name: res.data.token.id.full_name,
-          email: res.data.token.id.email,
-          isLogin: true,
-        });
       })
       .catch(() => {
         // If no token, navigate to login
         navigate('/login');
       });
-  }, [groupId]);
+  }, [])
 
 
   const handleCopyToClipboard = () => {
@@ -65,16 +65,69 @@ const Group = () => {
 
   const renderPersonCards = () => {
     return groupDetails.users.map((user) => (
-      <div key={user.id} className="border rounded-lg p-4 shadow-md transition-transform transform hover:scale-105 group">
+      <div key={user.id} className="border rounded-lg p-4 shadow-md transition-transform transform hover:scale-105 group relative">
         <h2 className="text-lg font-semibold">
           {user.full_name} {userInfo.id === user.id ? "(Me)" : ""}
         </h2>
         <p className="text-sm text-gray-500 opacity-100 transition-opacity">
           {user.email}
         </p>
+        {userInfo.id === groupDetails.admin_id && userInfo.id !== user.id && (
+          <button
+            className="absolute top-2 right-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+            onClick={() => handleDeleteUser(user.id)}
+            disabled={user.isDeleting}
+          >
+            {user.isDeleting ? "Deleting..." : "Delete"}
+          </button>
+        )}
       </div>
     ));
   };
+  
+  const handleDeleteUser = (userId) => {
+    const shouldDelete = window.confirm("Are you sure you want to delete this user?");
+    
+    if (!shouldDelete) {
+      return; // User canceled the deletion
+    }
+
+    // Find the user by ID and set the isDeleting state to true
+    setGroupDetails((prevGroupDetails) => {
+      const updatedUsers = prevGroupDetails.users.map((user) => {
+        if (user.id === userId) {
+          return { ...user, isDeleting: true };
+        }
+        return user;
+      });
+      return {
+        ...prevGroupDetails,
+        users: updatedUsers,
+      };
+    });
+  
+    // Implement the logic to delete the user from the group
+    axiosInstance
+      .delete(`/api/group/${groupDetails.id}/removeUser/${userId}`, userInfo.id)
+      .then((res) => {
+        // Update the UI or perform any necessary actions upon successful deletion
+        console.log(`User ${userId} deleted successfully`);
+  
+        // Filter out the deleted user from the state
+        setGroupDetails((prevGroupDetails) => {
+          const updatedUsers = prevGroupDetails.users.filter((user) => user.id !== userId);
+          return {
+            ...prevGroupDetails,
+            users: updatedUsers,
+          };
+        });
+      })
+      .catch((error) => {
+        console.error(`Error deleting user ${userId}:`, error);
+      });
+  };
+  
+  
 
   return (
     <div>

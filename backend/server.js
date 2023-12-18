@@ -12,7 +12,9 @@ const logout = require('./controllers/logoutController');
 const { handleAddUserToGroup, handleCreateGroup } = require('./controllers/groupController');
 const { getGroupById } = require('./controllers/getGroupController');
 const { getAllGroup } = require('./controllers/getAllGroupController');
-const joinGroup = require('./controllers/joinGroupController');
+const {joinGroup} = require('./controllers/joinGroupController');
+const { deleteGroup } = require('./controllers/deleteGroupController');
+const { removeUser } = require('./controllers/removeUserController');
 
 const app = express();
 
@@ -36,6 +38,8 @@ app.post('/api/createGroup', handleCreateGroup)
 app.get('/api/group/:groupId', getGroupById)
 app.get('/api/user/:userId/groups', getAllGroup)
 app.post('/api/joinGroup', joinGroup)
+app.delete('/api/group/:groupId', deleteGroup)
+app.delete('/api/group/:groupId/removeUser/:userId', removeUser)
 
 mongoose
     .connect(process.env.MONGO_URI)

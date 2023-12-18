@@ -23,7 +23,8 @@ const Home = () => {
           full_name: '',
           email: '',
           isLogin: false,
-        });
+          });
+          localStorage.clear('userInfo')
         navigate('/login');
       })
       .catch((err) => {
@@ -31,9 +32,23 @@ const Home = () => {
       });
   };
 
-  const handleDeleteGroup = () => {
-
-  }
+  const handleDeleteGroup = (groupId) => {
+    // Show a confirmation dialog
+    const isConfirmed = window.confirm('Are you sure you want to delete this group?');
+  
+    // If user confirms, proceed with the deletion
+    if (isConfirmed) {
+      axiosInstance
+        .delete(`/api/group/${groupId}`)
+        .then((res) => {
+          // If the deletion is successful, update the userGroups state
+          setUserGroups((prevGroups) => prevGroups.filter((group) => group.id !== groupId));
+        })
+        .catch((error) => {
+          console.error('Error deleting group:', error);
+        });
+    }
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -42,12 +57,14 @@ const Home = () => {
       .get('/api/checkToken')
       .then((res) => {
         console.log("home res:", res);
-        setUserInfo({
+        const userInfoObj = {
           id: res.data.token.id.id,
           full_name: res.data.token.id.full_name,
           email: res.data.token.id.email,
           isLogin: true,
-        });
+        }
+        setUserInfo(userInfoObj);
+        localStorage.setItem("userInfo", JSON.stringify(userInfoObj))
       })
       .catch(() => {
         // If no token, navigate to login

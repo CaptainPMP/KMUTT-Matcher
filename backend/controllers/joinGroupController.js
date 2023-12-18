@@ -47,4 +47,4 @@ const joinGroup = async (req, res) => {
     }
   }
 
-  module.exports = joinGroup
+  module.exports = {joinGroup}

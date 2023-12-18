@@ -61,6 +61,7 @@ model Group {
   id               String    @id @default(auto()) @map("_id") @db.ObjectId
   group_name       String    
   group_description String?
+  admin_id         String
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
   users            GroupUser[] // Change here to use the junction table

@@ -23,6 +23,7 @@ const getGroupById = async (req, res) => {
                     ...groupUser.user,
                     isAdmin: groupUser.isAdmin,
                 })),
+                admin_id: groupDetails.admin_id,
             };
 
             res.json(groupWithUsers);

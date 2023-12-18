@@ -1,4 +1,3 @@
-// groupService.js
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
@@ -9,6 +8,7 @@ async function createGroup(groupName, groupDescription, userId) {
         data: {
             group_name: groupName,
             group_description: groupDescription,
+            admin_id: userId,
             users: {
               create: [{
                 userId,
