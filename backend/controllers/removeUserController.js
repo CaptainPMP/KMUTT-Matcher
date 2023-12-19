@@ -9,7 +9,7 @@ const removeUser = async (req, res) => {
         // Check if the user making the request is the admin of the group
         const isAdmin = await prisma.groupUser.findFirst({
             where: {
-                groupId,
+                groupId: parseInt(groupId),
                 userId: requestingUserId, // Check the requesting user's ID
                 isAdmin: true,
             },
@@ -17,7 +17,7 @@ const removeUser = async (req, res) => {
 
         if (!isAdmin) {
             // If not an admin, check if the user is trying to delete themselves
-            if (requestingUserId !== userId) {
+            if (requestingUserId != userId) {
                 return res.status(403).json({ error: 'You do not have permission to delete other users from this group.' });
             }
         }
@@ -25,8 +25,8 @@ const removeUser = async (req, res) => {
         // Remove the user from the group
         await prisma.groupUser.deleteMany({
             where: {
-                groupId: groupId,
-                userId: userId,
+                groupId: parseInt(groupId),
+                userId: parseInt(userId),
             },
         });
 

@@ -87,7 +87,7 @@ const Group = () => {
   }
 
   // Check if the user is a member of the group
-  const isMember = groupDetails.users.some(user => user.id === userInfo.id);
+  const isMember = groupDetails.users.some(user => user.id == userInfo.id);
 
   if (!isMember) {
     // Redirect user to home page or an error page if not a member of the group
@@ -114,7 +114,7 @@ const Group = () => {
       if (result.isConfirmed) {
         setGroupDetails((prevGroupDetails) => {
           const updatedUsers = prevGroupDetails.users.map((user) => {
-            if (user.id === userId) {
+            if (user.id == userId) {
               return { ...user, isExiting: true };
             }
             return user;
@@ -135,7 +135,7 @@ const Group = () => {
       
             // Filter out the exited user from the state
             setGroupDetails((prevGroupDetails) => {
-              const updatedUsers = prevGroupDetails.users.filter((user) => user.id !== userId);
+              const updatedUsers = prevGroupDetails.users.filter((user) => user.id != userId);
               return {
                 ...prevGroupDetails,
                 users: updatedUsers,
@@ -169,13 +169,13 @@ const Group = () => {
             <div key={user.id} className="border rounded-lg p-4 shadow-md transition-transform transform hover:scale-105 group relative">
               <Link to={`/user/${user.id}`} className="cursor-pointer">
                 <h2 className="text-lg font-semibold">
-                  {user.full_name} {userInfo.id === user.id ? "(Me)" : ""}
+                  {user.full_name} {userInfo.id == user.id ? "(Me)" : ""}
                 </h2>
               </Link>
               <p className="text-sm text-gray-500 opacity-100 transition-opacity">
                 {user.email}
               </p>
-              {userInfo.id === groupDetails.admin_id && userInfo.id !== user.id && (
+              {userInfo.id == groupDetails.admin_id && userInfo.id != user.id && (
                 <button
                   className="absolute top-2 right-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                   onClick={() => handleDeleteUser(user.id)}
@@ -184,7 +184,7 @@ const Group = () => {
                   {user.isDeleting ? "Deleting..." : "Delete"}
                 </button>
               )}
-              {userInfo.id !== groupDetails.admin_id && userInfo.id === user.id && (
+              {userInfo.id != groupDetails.admin_id && userInfo.id == user.id && (
                 <button
                   className="absolute bottom-2 right-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                   onClick={() => handleExitGroup(user.id)}
@@ -204,13 +204,13 @@ const Group = () => {
         <div key={user.id} className="border rounded-lg p-4 shadow-md transition-transform transform hover:scale-105 group relative">
           <Link to={`/user/${user.id}`} className="cursor-pointer">
             <h2 className="text-lg font-semibold">
-              {user.full_name} {userInfo.id === user.id ? "(Me)" : ""}
+              {user.full_name} {userInfo.id == user.id ? "(Me)" : ""}
             </h2>
           </Link>
           <p className="text-sm text-gray-500 opacity-100 transition-opacity">
             {user.email}
           </p>
-          {userInfo.id === groupDetails.admin_id && userInfo.id !== user.id && (
+          {userInfo.id == groupDetails.admin_id && userInfo.id != user.id && (
             <button
               className="absolute top-2 right-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
               onClick={() => handleDeleteUser(user.id)}
@@ -219,7 +219,7 @@ const Group = () => {
               {user.isDeleting ? "Deleting..." : "Delete"}
             </button>
           )}
-          {userInfo.id !== groupDetails.admin_id && userInfo.id === user.id && (
+          {userInfo.id != groupDetails.admin_id && userInfo.id == user.id && (
             <button
               className="absolute bottom-2 right-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
               onClick={() => handleExitGroup(user.id)}
@@ -237,7 +237,7 @@ const Group = () => {
 
   const exportToCSV = () => {
     // Check if dividedGroups is available
-    if (!groupDetails.dividedGroups || groupDetails.dividedGroups.length === 0) {
+    if (!groupDetails.dividedGroups || groupDetails.dividedGroups.length == 0) {
       console.error('No groups available to export.');
       return;
     }
@@ -285,7 +285,7 @@ const Group = () => {
         // Find the user by ID and set the isDeleting state to true
     setGroupDetails((prevGroupDetails) => {
       const updatedUsers = prevGroupDetails.users.map((user) => {
-        if (user.id === userId) {
+        if (user.id == userId) {
           return { ...user, isDeleting: true };
         }
         return user;
@@ -305,7 +305,7 @@ const Group = () => {
   
         // Filter out the deleted user from the state
         setGroupDetails((prevGroupDetails) => {
-          const updatedUsers = prevGroupDetails.users.filter((user) => user.id !== userId);
+          const updatedUsers = prevGroupDetails.users.filter((user) => user.id != userId);
           return {
             ...prevGroupDetails,
             users: updatedUsers,

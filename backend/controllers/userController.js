@@ -53,7 +53,7 @@ const getUser = async (req, res) => {
 //     if(emptyFields.length > 0){
 //         return res.status(400).json({error: "Please fill in all fields", emptyFields})
 //     }
-//     if(password !== confirm_password){
+//     if(password != confirm_password){
 //         return res.status(400).json({error: "Your password and confirm password not same"})
 //     }
 //     if (existingUser) {

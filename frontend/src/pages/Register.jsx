@@ -33,7 +33,7 @@ const Register = () => {
     axiosInstance.post("/api/register", user)
         .then((res) => {
           setIsLoading(false)
-          if(res.status === 201){
+          if(res.status == 201){
             Swal.fire({
               title: 'Create user successfully!',
               icon: 'success',

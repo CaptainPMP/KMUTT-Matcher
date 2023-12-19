@@ -7,7 +7,7 @@ const getAllGroup = async (req, res) => {
   try {
     const userGroups = await prisma.groupUser.findMany({
       where: {
-        userId: userId,
+        userId: parseInt(userId),
       },
       include: {
         group: true,

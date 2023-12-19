@@ -6,7 +6,7 @@ const updateUser = async (req, res) => {
   
     try {
       const updatedUser = await prisma.user.update({
-        where: { id: userId },
+        where: { id: parseInt(userId) },
         data: {
           full_name: req.body.full_name,
           email: req.body.email,

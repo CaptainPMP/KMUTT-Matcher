@@ -8,7 +8,7 @@ const updateContact = async (req, res) => {
     try {
       // Update the user's contact information in the database
       const updatedContact = await prisma.socialmedia.upsert({
-        where: { id: userId },
+        where: { id: parseInt(userId) },
         update: {
           line,
           facebook,
@@ -16,7 +16,7 @@ const updateContact = async (req, res) => {
           phone,
         },
         create: {
-          userId,
+          userId: parseInt(userId),
           line,
           facebook,
           instagram,

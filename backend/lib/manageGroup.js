@@ -8,7 +8,7 @@ async function createGroup(groupName, groupDescription, userId) {
         data: {
             group_name: groupName,
             group_description: groupDescription,
-            admin_id: userId,
+            admin_id: String(userId),
             users: {
               create: [{
                 userId,

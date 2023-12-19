@@ -7,7 +7,7 @@ const getUserProfile = async (req, res) => {
     try {
       // Fetch user profile data including related models
       const userProfile = await prisma.user.findUnique({
-        where: { id: userId },
+        where: { id: parseInt(userId) },
       });
   
       if (!userProfile) {

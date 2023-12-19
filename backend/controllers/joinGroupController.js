@@ -13,7 +13,7 @@ const joinGroup = async (req, res) => {
         
       // Check if the group exists
       const group = await prisma.group.findUnique({
-        where: { id: groupId },
+        where: { id: parseInt(groupId) },
       });
   
       if (!group) {

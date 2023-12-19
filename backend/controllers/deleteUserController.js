@@ -8,14 +8,20 @@ const deleteUser = async (req, res) => {
       // Use Prisma to find and delete related GroupUser records
       await prisma.groupUser.deleteMany({
         where: {
-          userId: userId,
+          userId: parseInt(userId),
+        },
+      });
+
+      await prisma.socialmedia.deleteMany({
+        where: {
+          userId: parseInt(userId),
         },
       });
   
       // Now, it should be safe to delete the user
       await prisma.user.delete({
         where: {
-          id: userId,
+          id: parseInt(userId),
         },
       });
   

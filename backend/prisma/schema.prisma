@@ -6,14 +6,14 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("MONGO_URI")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 // schema.prisma
 
 model User {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          Int    @id @default(autoincrement())
   email       String    @unique
   password    String
   full_name   String
@@ -29,9 +29,9 @@ model User {
 }
 
 model Socialmedia {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  user      User       @relation(fields: [userId], references: [id])
-  userId    String     @db.ObjectId @unique
+  id        Int    @id @default(autoincrement())
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int     @unique
   line      String?     
   facebook  String?     
   instagram String?    
@@ -41,9 +41,9 @@ model Socialmedia {
 }
 
 model Mbti {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  user      User      @relation(fields: [userId], references: [id])
-  userId    String    @unique @db.ObjectId
+  id        Int    @id @default(autoincrement())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int    @unique
   Ne        Int?
   Ni        Int?
   Te        Int?
@@ -59,7 +59,7 @@ model Mbti {
 }
 
 model Group {
-  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  id               Int    @id @default(autoincrement())
   group_name       String    
   group_description String?
   admin_id         String
@@ -69,11 +69,11 @@ model Group {
 }
 
 model GroupUser {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        Int   @id @default(autoincrement())
   user      User     @relation(fields: [userId], references: [id])
-  userId    String   @db.ObjectId
+  userId    Int   
   group     Group    @relation(fields: [groupId], references: [id])
-  groupId   String   @db.ObjectId
+  groupId   Int  
   isAdmin   Boolean  @default(false) // New field to indicate admin status
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

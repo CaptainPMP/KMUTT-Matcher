@@ -7,10 +7,7 @@ const getUserContact = async (req, res) => {
     try {
       // Fetch user's contact information from MongoDB
       const userContact = await prisma.socialmedia.findUnique({
-        where: { userId },
-        include: {
-            socialmedia: true, // Include the Socialmedia relation
-        },
+        where: { userId: parseInt(userId) }
       });
       // console.log("user contact is", userContact);
       res.status(200).json({ success: true, userContact });
