@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { axiosInstance } from '../../lib/axios';
 import { DataContext } from '../App';
 import Swal from 'sweetalert2';
@@ -167,9 +167,11 @@ const Group = () => {
           <h2 className="text-xl font-semibold mb-4">Group {index + 1}</h2>
           {group.map((user) => (
             <div key={user.id} className="border rounded-lg p-4 shadow-md transition-transform transform hover:scale-105 group relative">
-              <h2 className="text-lg font-semibold">
-                {user.full_name} {userInfo.id === user.id ? "(Me)" : ""}
-              </h2>
+              <Link to={`/user/${user.id}`} className="cursor-pointer">
+                <h2 className="text-lg font-semibold">
+                  {user.full_name} {userInfo.id === user.id ? "(Me)" : ""}
+                </h2>
+              </Link>
               <p className="text-sm text-gray-500 opacity-100 transition-opacity">
                 {user.email}
               </p>
@@ -200,9 +202,11 @@ const Group = () => {
       // If dividedGroups is not available, render the default view
       return groupDetails.users.map((user) => (
         <div key={user.id} className="border rounded-lg p-4 shadow-md transition-transform transform hover:scale-105 group relative">
-          <h2 className="text-lg font-semibold">
-            {user.full_name} {userInfo.id === user.id ? "(Me)" : ""}
-          </h2>
+          <Link to={`/user/${user.id}`} className="cursor-pointer">
+            <h2 className="text-lg font-semibold">
+              {user.full_name} {userInfo.id === user.id ? "(Me)" : ""}
+            </h2>
+          </Link>
           <p className="text-sm text-gray-500 opacity-100 transition-opacity">
             {user.email}
           </p>

@@ -15,7 +15,8 @@ const Navbar = () => {
         ) : (
           <div className="space-x-4">
             <Link to='/home' className="hover:bg-gray-600 px-3 py-2 rounded">Home</Link>
-            <Link to='/edit-profile' className="hover:bg-gray-600 px-3 py-2 rounded">Edit Profile</Link>
+            <Link to='/editProfile' className="hover:bg-gray-600 px-3 py-2 rounded">Edit Profile</Link>
+            <Link to='/editContact' className="hover:bg-gray-600 px-3 py-2 rounded">Edit Contact</Link>
           </div>
         )}
       </div>
