@@ -6,7 +6,7 @@ const getGroupById = async (req, res) => {
 
     try {
         const groupDetails = await prisma.group.findUnique({
-            where: { id: groupId },
+            where: { id: parseInt(groupId) },
             include: {
                 users: {
                     include: {

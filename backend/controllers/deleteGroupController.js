@@ -7,12 +7,12 @@ const deleteGroup = async (req, res) => {
     try {
       // Find and delete associated GroupUser records first
       await prisma.groupUser.deleteMany({
-        where: { groupId: groupId },
+        where: { groupId: parseInt(groupId) },
       });
   
       // Now, you can delete the group
       const deletedGroup = await prisma.group.delete({
-        where: { id: groupId },
+        where: { id: parseInt(groupId) },
       });
   
       res.json({ message: 'Group deleted successfully', deletedGroup });
