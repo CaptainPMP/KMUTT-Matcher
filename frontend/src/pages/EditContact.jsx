@@ -68,11 +68,11 @@ const EditContact = () => {
   return (
     <div>
       <Navbar />
-      <div className="container mx-auto mt-8 text-center">
-        <h1 className="text-4xl font-bold mb-4">Edit Contact</h1>
+      <div className="w-full max-w-xl mx-auto  text-center bg-gray-100 shadow-md rounded mt-20 px-8 pt-6 pb-8 mb-4">
+        <h1 className="text-3xl text-gray-700 font-bold mb-6">Edit Contact</h1>
         <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="line">
+          <div className="mb-4 shadow-xl">
+            <label className="block text-gray-700 text-xl font-bold mb-2" htmlFor="line">
               Line
             </label>
             <input
@@ -81,11 +81,11 @@ const EditContact = () => {
               name="line"
               value={line}
               onChange={(e) => setLine(e.target.value)}
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none border-2 border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="facebook">
+          <div className="mb-4 shadow-xl">
+            <label className="block text-gray-700 text-xl font-bold mb-2" htmlFor="facebook">
               Facebook
             </label>
             <input
@@ -94,12 +94,12 @@ const EditContact = () => {
               name="facebook"
               value={facebook}
               onChange={(e) => setFacebook(e.target.value)}
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none border-2 border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="instagram">
+          <div className="mb-4 shadow-xl">
+            <label className="block text-gray-700 text-xl font-bold mb-2" htmlFor="instagram">
               Instagram
             </label>
             <input
@@ -108,12 +108,12 @@ const EditContact = () => {
               name="instagram"
               value={instagram}
               onChange={(e) => setInstagram(e.target.value)}
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none border-2 border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
+          <div className="mb-4 shadow-xl">
+            <label className="block text-gray-700 text-xl font-bold mb-2" htmlFor="phone">
               Phone
             </label>
             <input
@@ -122,11 +122,11 @@ const EditContact = () => {
               name="phone"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none border-2 border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-4 ">
             <button
               type="submit"
               className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${

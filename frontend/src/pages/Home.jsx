@@ -36,7 +36,6 @@ const Home = () => {
   const handleDeleteGroup = (groupId) => {
     // Show a confirmation dialog
     // const isConfirmed = window.confirm('Are you sure you want to delete this group?');
-
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -56,14 +55,14 @@ const Home = () => {
             text: "Your file has been deleted.",
             icon: "success"
           });
-          setUserGroups((prevGroups) => prevGroups.filter((group) => group.id != groupId));
+          setUserGroups((prevGroups) => prevGroups.filter((group) => group.id !== groupId));
         })
         .catch((error) => {
           console.error('Error deleting group:', error);
         });
       }
     });
-  
+
   };
 
   useEffect(() => {

@@ -163,7 +163,7 @@ const Group = () => {
   const renderPersonCards = () => {
     if (groupDetails.dividedGroups) {
       return groupDetails.dividedGroups.map((group, index) => (
-        <div key={index} className="mb-8">
+        <div key={index} className="mb-8 bg-gray-100">
           <h2 className="text-xl font-semibold mb-4">Group {index + 1}</h2>
           {group.map((user) => (
             <div key={user.id} className="border rounded-lg p-4 shadow-md transition-transform transform hover:scale-105 group relative">
@@ -201,7 +201,7 @@ const Group = () => {
     } else {
       // If dividedGroups is not available, render the default view
       return groupDetails.users.map((user) => (
-        <div key={user.id} className="border rounded-lg p-4 shadow-md transition-transform transform hover:scale-105 group relative">
+        <div key={user.id} className="bg-gray-100 border rounded-lg p-4 shadow-md transition-transform transform hover:scale-105 group relative">
           <Link to={`/user/${user.id}`} className="cursor-pointer">
             <h2 className="text-lg font-semibold">
               {user.full_name} {userInfo.id == user.id ? "(Me)" : ""}
