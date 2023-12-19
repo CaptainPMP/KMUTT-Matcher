@@ -6,6 +6,7 @@ import { Eye, EyeSlash  } from "phosphor-react";
 import axios from "axios"
 import { axiosInstance } from "../../lib/axios";
 import ClipLoader from "react-spinners/ClipLoader";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -33,10 +34,21 @@ const Register = () => {
         .then((res) => {
           setIsLoading(false)
           if(res.status === 201){
+            Swal.fire({
+              title: 'Create user successfully!',
+              icon: 'success',
+              confirmButtonText: 'Ok',
+            })
             navigate('/home')
           }
         })
         .catch((error) => {
+            setIsLoading(false)
+            Swal.fire({
+              title: 'Something went wrong!',
+              icon: 'error',
+              confirmButtonText: 'Ok',
+            })
             console.log(error);
             // setError(error.response.data.error)
             // setEmptyFields(error.response.data.emptyFields)

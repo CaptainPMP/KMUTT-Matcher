@@ -7,7 +7,8 @@ import { axiosInstance } from '../../lib/axios';
 import { DataContext } from '../App';
 
 const CreateGroup = () => {
-  const {userInfo, setUserInfo } = useContext(DataContext)
+  // const {userInfo, setUserInfo } = useContext(DataContext)
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'))
   const [groupName, setGroupName] = useState('');
   const [groupDescription, setGroupDescription] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -41,18 +42,12 @@ const CreateGroup = () => {
       .get('/api/checkToken')
       .then((res) => {
         console.log("home res:", res);
-        setUserInfo({
-          id: res.data.token.id.id,
-          full_name: res.data.token.id.full_name,
-          email: res.data.token.id.email,
-          isLogin: true,
-        });
       })
       .catch(() => {
         // If no token, navigate to login
         navigate('/login');
       });
-  }, [userInfo, setUserInfo]); // Empty dependency array means this effect runs only once when the component mounts
+  }, [userInfo]); // Empty dependency array means this effect runs only once when the component mounts
 
   return (
     <div>

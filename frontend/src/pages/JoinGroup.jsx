@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
 import { axiosInstance } from '../../lib/axios';
+import Swal from 'sweetalert2';
 
 const JoinGroup = () => {
   const [groupId, setGroupId] = useState('');

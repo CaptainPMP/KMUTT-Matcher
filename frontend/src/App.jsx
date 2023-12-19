@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import CreateGroup from './pages/CreateGroup';
 import JoinGroup from './pages/JoinGroup';
 import Group from './pages/Group';
+import EditProfile from './pages/EditProfile';
 
 export const DataContext = createContext();
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/Edit-Profile" element={<EditProfile />} />
         <Route path="/createGroup" element={<CreateGroup />} />
         <Route path="/joinGroup" element={<JoinGroup />} />
         <Route path="/group/:groupId" element={<Group />} />

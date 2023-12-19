@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Eye, EyeSlash  } from "phosphor-react";
 import { axiosInstance } from "../../lib/axios";
 import ClipLoader from "react-spinners/ClipLoader";
+import Swal from "sweetalert2";
 // import { Button, useToast } from "@chakra-ui/react";
 
 const Login = () => {
@@ -32,6 +33,12 @@ const Login = () => {
           navigate('/home')
         })
         .catch((error) => {
+          setIsLoading(false)
+          Swal.fire({
+            title: 'Email or password is not correct',
+            icon: 'error',
+            confirmButtonText: 'Ok',
+          })
           console.log(error);
         })  
     }
