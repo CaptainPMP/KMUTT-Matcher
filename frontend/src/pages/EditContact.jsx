@@ -68,7 +68,7 @@ const EditContact = () => {
   return (
     <div>
       <Navbar />
-      <div className="w-full max-w-xl mx-auto  text-center bg-gray-100 bg-white shadow-md rounded mt-20 px-8 pt-6 pb-8 mb-4">
+      <div className="w-full max-w-xl mx-auto  text-center bg-gray-100 shadow-md rounded mt-20 px-8 pt-6 pb-8 mb-4">
         <h1 className="text-3xl text-gray-700 font-bold mb-6">Edit Contact</h1>
         <form onSubmit={handleSubmit} className="max-w-md mx-auto">
           <div className="mb-4 shadow-xl">
