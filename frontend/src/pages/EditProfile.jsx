@@ -109,11 +109,11 @@ const EditProfile = () => {
   return (
   <div>
     <Navbar />
-    <div className="container mx-auto mt-8 text-center">
-        <h1 className="text-4xl font-bold mb-4">Edit Profile</h1>
+    <div className="w-full max-w-xl mx-auto  text-center bg-gray-100 bg-white shadow-md rounded mt-20 px-8 pt-6 pb-8 mb-4">
+        <h1 className="text-3xl text-gray-700 font-bold mb-6">Edit Profile</h1>
         <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-        <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="fullName">
+        <div className="mb-4 shadow-xl">
+            <label className="block text-gray-700 text-xl font-bold mb-2" htmlFor="fullName">
             Full Name
             </label>
             <input
@@ -122,12 +122,12 @@ const EditProfile = () => {
             name="fullName"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="appearance-none border-2 border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
             />
         </div>
-        <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+        <div className="mb-4 shadow-xl">
+            <label className="block text-gray-700 text-xl font-bold mb-2" htmlFor="email">
               Email
             </label>
             <input
@@ -136,13 +136,13 @@ const EditProfile = () => {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none border-2 border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
               disabled // Add disabled attribute
             />
         </div>
-        <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="gender">
+        <div className="mb-4 shadow-xl">
+            <label className="block text-gray-700 text-xl font-bold mb-2" htmlFor="gender">
             Gender
             </label>
             <select
@@ -150,7 +150,7 @@ const EditProfile = () => {
             name="gender"
             value={gender}
             onChange={(e) => setGender(e.target.value)}
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="appearance-none border-2 border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             >
             <option value="">Select Gender</option>
             <option value="Male">Male</option>
@@ -158,8 +158,8 @@ const EditProfile = () => {
             <option value="Other">Other</option>
             </select>
         </div>
-        <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+        <div className="mb-4 ">
+            <label className="block text-gray-700 text-xl font-bold mb-2" htmlFor="description">
             Description
             </label>
             <textarea
@@ -168,7 +168,7 @@ const EditProfile = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows="4"
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="appearance-none border-2 border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
         </div>
         <div className="mb-4">

@@ -7,6 +7,7 @@ import { DataContext } from '../App';
 import { useContext } from 'react';
 import Footer from '../components/Footer';
 import GroupCard from '../components/GroupCard';
+import Swal from 'sweetalert2';
 
 const Home = () => {
   const { userInfo, setUserInfo } = useContext(DataContext);
@@ -34,20 +35,34 @@ const Home = () => {
 
   const handleDeleteGroup = (groupId) => {
     // Show a confirmation dialog
-    const isConfirmed = window.confirm('Are you sure you want to delete this group?');
-  
-    // If user confirms, proceed with the deletion
-    if (isConfirmed) {
-      axiosInstance
+    // const isConfirmed = window.confirm('Are you sure you want to delete this group?');
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosInstance
         .delete(`/api/group/${groupId}`)
         .then((res) => {
           // If the deletion is successful, update the userGroups state
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
           setUserGroups((prevGroups) => prevGroups.filter((group) => group.id !== groupId));
         })
         .catch((error) => {
           console.error('Error deleting group:', error);
         });
-    }
+      }
+    });
   };
 
   useEffect(() => {

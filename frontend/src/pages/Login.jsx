@@ -45,15 +45,15 @@ const Login = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex items-center justify-center h-screen">
-        <div className="w-full max-w-xs">
+      <div className="flex items-center justify-center mt-20">
+        <div className="w-full max-w-2xl">
           <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            <div className="mb-4 shadow-xl">
+              <label className="block text-gray-700 text-xl font-bold mb-2" htmlFor="email">
                 Email
               </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-5 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="username"
                 type="text"
                 value={email}
@@ -61,13 +61,13 @@ const Login = () => {
                 placeholder="Enter your email"
               />
             </div>
-            <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+            <div className="mb-6 shadow-xl">
+              <label className="block text-gray-700 text-xl  font-bold mb-2" htmlFor="password">
                 Password
               </label>
               <div className="relative">
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border rounded w-full py-5 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="password"
                   type={passwordVisible ? 'text' : 'password'}
                   placeholder="********"
@@ -93,7 +93,7 @@ const Login = () => {
 
             </div>
           </form>
-          <p className="text-center text-gray-500 text-xs">&copy; 2023 My App. All rights reserved.</p>
+          <p className="text-center text-gray-100 text-xs">&copy; 2023 My App. All rights reserved.</p>
         </div>
       </div>
     </div>
