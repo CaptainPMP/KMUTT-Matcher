@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 
 const matchPassword = async (password, hash) => {
-    const isMatch = await bcrypt.compare(password, hash);
+    const isMatch = await bcrypt.compareSync(password, hash);
     return isMatch;
 };
 

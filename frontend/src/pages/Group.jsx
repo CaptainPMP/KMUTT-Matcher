@@ -58,14 +58,12 @@ const Group = () => {
     // For demonstration purposes, let's shuffle the existing users and update the state
     setGroupDetails((prevGroupDetails) => {
       const shuffledUsers = [...prevGroupDetails.users].sort(() => Math.random() - 0.5);
-      const dividedGroups = [];
-      const usersPerGroup = Math.ceil(shuffledUsers.length / numberOfGroups);
+      const dividedGroups = Array.from({ length: numberOfGroups }, (_, i) => []);
 
-      for (let i = 0; i < numberOfGroups; i++) {
-        const startIdx = i * usersPerGroup;
-        const endIdx = startIdx + usersPerGroup;
-        dividedGroups.push(shuffledUsers.slice(startIdx, endIdx));
-      }
+      shuffledUsers.forEach((user, index) => {
+        const groupIndex = index % numberOfGroups;
+        dividedGroups[groupIndex].push(user);
+      });
 
       return {
         ...prevGroupDetails,
@@ -166,7 +164,7 @@ const Group = () => {
         <div key={index} className="mb-8">
           <h2 className="text-xl font-semibold mb-4">Group {index + 1}</h2>
           {group.map((user) => (
-            <div key={user.id} className="border rounded-lg p-4 shadow-md transition-transform transform hover:scale-105 group relative">
+            <div key={user.id} className="bg-gray-100 border rounded-lg p-4 shadow-md transition-transform transform hover:scale-105 group relative mb-4">
               <Link to={`/user/${user.id}`} className="cursor-pointer">
                 <h2 className="text-lg font-semibold">
                   {user.full_name} {userInfo.id === user.id ? "(Me)" : ""}
@@ -201,7 +199,7 @@ const Group = () => {
     } else {
       // If dividedGroups is not available, render the default view
       return groupDetails.users.map((user) => (
-        <div key={user.id} className="border rounded-lg p-4 shadow-md transition-transform transform hover:scale-105 group relative">
+        <div key={user.id} className="bg-gray-100 border rounded-lg p-4 shadow-md transition-transform transform hover:scale-105 group relative">
           <Link to={`/user/${user.id}`} className="cursor-pointer">
             <h2 className="text-lg font-semibold">
               {user.full_name} {userInfo.id === user.id ? "(Me)" : ""}

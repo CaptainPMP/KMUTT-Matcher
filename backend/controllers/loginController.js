@@ -5,6 +5,7 @@ const { matchPassword } = require('../lib/managePassword');
 // import { PrismaClient } from '@prisma/client'
 const {PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient()
+const bcrypt = require('bcrypt')
 
 const login = async (req, res) => {
     try {
@@ -44,11 +45,14 @@ const login = async (req, res) => {
             errorMessage.push('Email does not exist');
             return res.status(400).json({ error: 'Email does not exist' });
         }
-        if (!matchPassword(password, user.password)) {
+        if (!bcrypt.compareSync(password, user.password)) {
             // Password does not match, return an error response
             errorMessage.push('Password does not match');
             return res.status(400).json({ error: 'Password does not match' });
         }
+        
+        console.log("password is", bcrypt.hashSync(password,10));
+        console.log("user password is", user.password);
         const payload = {id: user.id, email: user.email, full_name: user.full_name}
         console.log("payload:", payload);
         console.log("payload: ", payload);
